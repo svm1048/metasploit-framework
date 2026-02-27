@@ -1,0 +1,3976 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metasploit Stats</title>
+    <meta charset='utf-8'>
+    <!-- REQUIRED -->
+    <style>
+      body{
+        padding-top: 60px;
+        font-size: 16px;
+      }
+
+      .panel-title {
+        font-size: 18px;
+      }
+
+      .table {
+        font-size: 15px;
+      }
+
+      .clickable-row {
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      .clickable-row:hover {
+        background-color: #337ab7 !important;
+        color: white;
+      }
+
+      .clickable-row:hover a {
+        color: #ffffff !important;
+      }
+
+      .clickable-row.visited {
+        opacity: 0.6;
+        background-color: #2a2f3a !important;
+      }
+
+      .clickable-row.visited td {
+        color: #999;
+      }
+
+      .clickable-row a:visited {
+        color: #999;
+      }
+
+      .clickable-row.visited:hover {
+        background-color: #337ab7 !important;
+        color: white;
+        opacity: 1;
+      }
+
+      .clickable-row.visited:hover td {
+        color: white;
+      }
+
+      .clickable-row.visited:hover a {
+        color: #ffffff !important;
+      }
+
+      .panel-collapse .panel-body {
+        padding: 15px;
+      }
+
+      .collapse-toggle {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .collapse-toggle:before {
+        content: "▼ ";
+        font-size: 12px;
+        margin-right: 5px;
+        transition: transform 0.2s ease;
+        display: inline-block;
+      }
+
+      .collapse-toggle.collapsed:before {
+        transform: rotate(-90deg);
+      }
+
+      h4 {
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+
+      .panel-heading {
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.2s ease;
+      }
+
+      .panel-heading:hover {
+        background-color: #4e5d6c !important;
+        border-color: #4e5d6c !important;
+        color: #ffffff !important;
+      }
+
+      .github-icon {
+        float: right;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: #666;
+        text-decoration: none;
+        font-size: 14px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+      }
+
+      .github-icon:hover {
+        background-color: #337ab7;
+        color: white;
+        text-decoration: none;
+      }
+
+      .repo-name {
+        display: inline-block;
+      }
+
+      .review-badge {
+        font-size: 11px;
+        padding: 3px 6px;
+        border-radius: 3px;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      .badge-needs-review {
+        background-color: #e74c3c;
+        color: #fff;
+      }
+
+      .badge-reviewed {
+        background-color: #28a745;
+        color: #fff;
+      }
+    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet" integrity="sha384-IEb1z7D4ISbz8RTKVtgjIw6KegExJgu6WdDei6Fn2xgL6f5dfyTppLEFnkFbRaxv" crossorigin="anonymous">
+    <script src="assets/bootstrap/js/jquery.min.js"></script>
+    <script src="assets/highcharts.js" type='text/javascript'></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        // Accordion functionality handled by Bootstrap
+      });
+    </script>
+    <!-- EO REQUIRED -->
+  </head>
+  <body>
+    <!-- NAVBAR-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+              </button> <a class="navbar-brand" href="#">Metasploit Stats</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="https://docs.metasploit.com">Metasploit Docs</a></li>
+                <li><a href="https://github.com/rapid7/metasploit-framework">Metasploit on Github</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!-- NAVBAR END-->
+
+    <div class='container'>
+      <div class='tabbable tabs-left'>
+        <ul class='nav nav-pills'>
+          <li>
+            
+  <li role="presentation">
+    <a href="pull_request_rates.html" >Pull Requests per Quarter</a>
+  </li>
+  <li role="presentation">
+    <a href="bug_rates.html" >Bugs per Quarter</a>
+  </li>
+  <li role="presentation">
+    <a href="feature_and_enhancement_rates.html" >Features and Enhancements per Quarter</a>
+  </li>
+  <li role="presentation">
+    <a href="index.html" >Open Pull Requests
+      <span class="badge">28 since last week</span>
+    </a>
+  </li>
+  <li role="presentation">
+    <a href="features_and_enhancements.html" >Open Features and Enhancements
+      <span class="badge">0 since last week</span>
+    </a>
+  </li>
+  <li role="presentation">
+    <a href="bugs.html" >Open Bugs
+      <span class="badge">4 since last week</span>
+    </a>
+  </li>
+  <li role="presentation">
+    <a href="metasploit_repos.html" >Metasploit Repositories</a>
+  </li>
+          </li>
+        </ul>
+        <div class='tab-content'>
+          <div class='tab-pane active'>
+            <div class='page-header'>
+              <h1 class='pagination-centered'>
+                Pull Requests by Repository
+                <button id="clearVisitedBtn" class="btn btn-sm btn-default" style="margin-left: 20px; vertical-align: middle;" title="Clear visited PR status">
+                  <span class="glyphicon glyphicon-refresh"></span> Clear Visited
+                </button>
+              </h1>
+            </div>
+
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-0" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-framework</span>
+                  <a href="https://github.com/rapid7/metasploit-framework/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 24 need review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">54 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">13961 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-0" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (54)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="0" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="0">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="0" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21024', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21024" target="_blank" onclick="event.stopPropagation();">#21024</a></td>
+                      <td>Fix #21022: msfrpcd JSON-RPC SSL certificate check logic</td>
+                      <td>Aaditya1273</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>today</td>
+                      <td>today</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="1" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21020', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21020" target="_blank" onclick="event.stopPropagation();">#21020</a></td>
+                      <td>Running-Private-Modules.md: Remove duplicate lines</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 day ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="5" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21009', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21009" target="_blank" onclick="event.stopPropagation();">#21009</a></td>
+                      <td>Add SMB relay packet forwarding for single target</td>
+                      <td>Mecktro</td>
+                      <td>
+                        
+                          jheysel-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-fix</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>5 days ago</td>
+                      <td>2 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21004', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21004" target="_blank" onclick="event.stopPropagation();">#21004</a></td>
+                      <td>Fix trailing backslash in shell registry operations</td>
+                      <td>EclipseAditya</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-fix</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>4 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21002', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21002" target="_blank" onclick="event.stopPropagation();">#21002</a></td>
+                      <td>Add LeakIX search module with 6 actions and bulk streaming</td>
+                      <td>Chocapikk</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-modules</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21001', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21001" target="_blank" onclick="event.stopPropagation();">#21001</a></td>
+                      <td>Add SPIP Saisies plugin RCE module (CVE-2025-71243)</td>
+                      <td>Chocapikk</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-modules</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21000', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21000" target="_blank" onclick="event.stopPropagation();">#21000</a></td>
+                      <td>Add three MajorDoMo unauthenticated RCE modules</td>
+                      <td>Chocapikk</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-modules</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20999', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20999" target="_blank" onclick="event.stopPropagation();">#20999</a></td>
+                      <td>Remove obsolete windows/local/persistence in favor of windows/persistence/registry</td>
+                      <td>Aaditya1273</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>2 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="8" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20989', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20989" target="_blank" onclick="event.stopPropagation();">#20989</a></td>
+                      <td>This adjusts module options that need a routable address</td>
+                      <td>zeroSteiner</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="10" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20980', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20980" target="_blank" onclick="event.stopPropagation();">#20980</a></td>
+                      <td>Updates metasploit-payloads to 2.0.43</td>
+                      <td>msutovsky-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-payload-enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="11" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20977', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20977" target="_blank" onclick="event.stopPropagation();">#20977</a></td>
+                      <td>php_eval: Improve check, fix exploit, add POST support &amp; more verbose</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="14" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20968', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20968" target="_blank" onclick="event.stopPropagation();">#20968</a></td>
+                      <td>Added hustoj_problem_import_qdouj.php exploit.</td>
+                      <td>oxagast</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>6 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20965', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20965" target="_blank" onclick="event.stopPropagation();">#20965</a></td>
+                      <td>adding RC4 packer x86, rc4 decrypt routine and sleep evasion routine</td>
+                      <td>litemars</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20963', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20963" target="_blank" onclick="event.stopPropagation();">#20963</a></td>
+                      <td>Add SQL session upgrade to meterpreter for PostgreSQL</td>
+                      <td>rudraditya21</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20961', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20961" target="_blank" onclick="event.stopPropagation();">#20961</a></td>
+                      <td>Update Wordpress Mixin to log services</td>
+                      <td>Nayeraneru</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>3 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="22" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20933', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20933" target="_blank" onclick="event.stopPropagation();">#20933</a></td>
+                      <td>Windows Persistence: Powershell Profile</td>
+                      <td>madefourit</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>3 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="27" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20918', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20918" target="_blank" onclick="event.stopPropagation();">#20918</a></td>
+                      <td>Add AssemblyObfuscator class </td>
+                      <td>jbx81-1337</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>3 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="38" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20885', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20885" target="_blank" onclick="event.stopPropagation();">#20885</a></td>
+                      <td>Add support for short command execution in bind_netcat module</td>
+                      <td>dledda-r7</td>
+                      <td>
+                        
+                          bwatters-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>2 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="40" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20881', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20881" target="_blank" onclick="event.stopPropagation();">#20881</a></td>
+                      <td>Add Kerberos type hashes to cracking</td>
+                      <td>h00die</td>
+                      <td>
+                        
+                          jheysel-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>3 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="50" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20852', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20852" target="_blank" onclick="event.stopPropagation();">#20852</a></td>
+                      <td>Expose encoder options</td>
+                      <td>dledda-r7</td>
+                      <td>
+                        
+                          adfoster-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="55" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20843', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20843" target="_blank" onclick="event.stopPropagation();">#20843</a></td>
+                      <td>windows telemetry persistence</td>
+                      <td>h00die</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="56" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20839', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20839" target="_blank" onclick="event.stopPropagation();">#20839</a></td>
+                      <td>New persistence module: Microsoft Bits</td>
+                      <td>h00die</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="84" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20752', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20752" target="_blank" onclick="event.stopPropagation();">#20752</a></td>
+                      <td>Add Authenticating Web Enrollment module for AD/CS</td>
+                      <td>bwatters-r7</td>
+                      <td>
+                        
+                          smcintyre-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-modules</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 months ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="214" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20419', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20419" target="_blank" onclick="event.stopPropagation();">#20419</a></td>
+                      <td>Initial support for Malleable C2 Profiles in HTTP Meterpreter</td>
+                      <td>OJ</td>
+                      <td>
+                        
+                          smcintyre-r7, dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">meterpreter</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">blocked</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">feature</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">payload</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">breaking change</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>7 months ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="1" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21023', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21023" target="_blank" onclick="event.stopPropagation();">#21023</a></td>
+                      <td>Add: exploits/multi/http/os_cmd_exec</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>1 day ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="3" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21019', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21019" target="_blank" onclick="event.stopPropagation();">#21019</a></td>
+                      <td>phpmyadmin_config: Add check, support v3.1.x &amp; CVE-2009-1285</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">15 comments</span>
+                        
+                      </td>
+                      <td>3 days ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="4" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21017', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21017" target="_blank" onclick="event.stopPropagation();">#21017</a></td>
+                      <td>Add Tactical RMM Jinja2 SSTI RCE module (CVE-2025-69516)</td>
+                      <td>Chocapikk</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">3 comments</span>
+                        
+                      </td>
+                      <td>4 days ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="4" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21016', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21016" target="_blank" onclick="event.stopPropagation();">#21016</a></td>
+                      <td>Add QuestDB SQL API Interaction Module (CNVD-2026-84827)</td>
+                      <td>ctkqiang</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">16 comments</span>
+                        
+                      </td>
+                      <td>4 days ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="5" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21008', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21008" target="_blank" onclick="event.stopPropagation();">#21008</a></td>
+                      <td>Add kernel_rex_version for kernel parsing</td>
+                      <td>EclipseAditya</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">7 comments</span>
+                        
+                      </td>
+                      <td>5 days ago</td>
+                      <td>2 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/21003', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/21003" target="_blank" onclick="event.stopPropagation();">#21003</a></td>
+                      <td>Unified Selenium Grid/Selenoid RCE with Firefox + Chrome auto-detection</td>
+                      <td>Chocapikk</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-modules</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>4 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="7" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20997', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20997" target="_blank" onclick="event.stopPropagation();">#20997</a></td>
+                      <td>Introduce OptTimedelta</td>
+                      <td>Nayeraneru</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>4 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="8" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20987', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20987" target="_blank" onclick="event.stopPropagation();">#20987</a></td>
+                      <td>LDAP sessions working for Kerberoast and AS-REP modules</td>
+                      <td>sjanusz-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">17 comments</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="10" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20979', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20979" target="_blank" onclick="event.stopPropagation();">#20979</a></td>
+                      <td>php_include: Improve check &amp; Clean up</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">2 comments</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="14" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20973', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20973" target="_blank" onclick="event.stopPropagation();">#20973</a></td>
+                      <td>HWBridge: support sessions -c execution and preserve non-200 JSON errors</td>
+                      <td>bitstr3m-48</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20967', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20967" target="_blank" onclick="event.stopPropagation();">#20967</a></td>
+                      <td>Add support for Ruby SMB Client to be compatible with Msf::Exploit::Remote::SMB::RelayServer </td>
+                      <td>jheysel-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">3 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20966', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20966" target="_blank" onclick="event.stopPropagation();">#20966</a></td>
+                      <td>adding RC4 packer x64, rc4 decrypt routine and sleep evasion routine</td>
+                      <td>litemars</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">12 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="16" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20960', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20960" target="_blank" onclick="event.stopPropagation();">#20960</a></td>
+                      <td>dhcp_server: Add DHCPINTERFACE</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          smcintyre-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">9 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="17" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20948', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20948" target="_blank" onclick="event.stopPropagation();">#20948</a></td>
+                      <td>Add initial osticket arbitraray file read auxiliary module</td>
+                      <td>ArkaprabhaChakraborty</td>
+                      <td>
+                        
+                          jheysel-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">33 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>2 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="17" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20946', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20946" target="_blank" onclick="event.stopPropagation();">#20946</a></td>
+                      <td>twiki_history: Add revision+page options &amp; Fetch payload support</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          bwatters-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">43 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>today</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="17" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20944', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20944" target="_blank" onclick="event.stopPropagation();">#20944</a></td>
+                      <td>Add Specs for mkdir post API to behave consistently across session types</td>
+                      <td>Nayeraneru</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">tests</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">blocked</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">9 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>2 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="18" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20940', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20940" target="_blank" onclick="event.stopPropagation();">#20940</a></td>
+                      <td>twiki_search: Fix exploit, more verbose, error handling, add fetch payload support</td>
+                      <td>g0tmi1k</td>
+                      <td>
+                        
+                          bwatters-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">22 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>1 day ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="25" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20921', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20921" target="_blank" onclick="event.stopPropagation();">#20921</a></td>
+                      <td>Add GL.iNet router auth bypass to RCE exploit chain</td>
+                      <td>AleksaZatezalo</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">17 comments</span>
+                        
+                      </td>
+                      <td>3 weeks ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="29" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20911', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20911" target="_blank" onclick="event.stopPropagation();">#20911</a></td>
+                      <td>Fixes the script for updating cached payload sizes</td>
+                      <td>msutovsky-r7</td>
+                      <td>
+                        
+                          smcintyre-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">bug</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">rn-fix</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">9 comments</span>
+                        
+                      </td>
+                      <td>4 weeks ago</td>
+                      <td>4 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="47" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20862', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20862" target="_blank" onclick="event.stopPropagation();">#20862</a></td>
+                      <td>add compat check to msftidy</td>
+                      <td>h00die</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">6 comments</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 month ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="59" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20835', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20835" target="_blank" onclick="event.stopPropagation();">#20835</a></td>
+                      <td>Add Eclipse Che machine-exec unauthenticated RCE (CVE-2025-12548)</td>
+                      <td>GregDurys</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">13 comments</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="62" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20814', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20814" target="_blank" onclick="event.stopPropagation();">#20814</a></td>
+                      <td>s4u persistence updates</td>
+                      <td>h00die</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">enhancement</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">6 comments</span>
+                        
+                      </td>
+                      <td>2 months ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="63" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20813', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20813" target="_blank" onclick="event.stopPropagation();">#20813</a></td>
+                      <td>Add Objective See Hunter Module: OSX Antivirus Enumeration and Disablement</td>
+                      <td>gardnerapp</td>
+                      <td>
+                        
+                          cdelafuente-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">37 comments</span>
+                        
+                      </td>
+                      <td>2 months ago</td>
+                      <td>4 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="73" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20779', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20779" target="_blank" onclick="event.stopPropagation();">#20779</a></td>
+                      <td>Add auxiliary module for Pterodactyl Panel CVE-2025-49132</td>
+                      <td>n05ec</td>
+                      <td>
+                        
+                          jheysel-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">12 comments</span>
+                        
+                      </td>
+                      <td>2 months ago</td>
+                      <td>1 month ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="93" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20730', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20730" target="_blank" onclick="event.stopPropagation();">#20730</a></td>
+                      <td>Allow toggling the SACL in LDAP queries</td>
+                      <td>zeroSteiner</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">additional-testing-required</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">10 comments</span>
+                        
+                      </td>
+                      <td>3 months ago</td>
+                      <td>3 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="97" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20719', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20719" target="_blank" onclick="event.stopPropagation();">#20719</a></td>
+                      <td>Add authenticated RCE module for FreePBX filestore (CVE-2025-64328)</td>
+                      <td>Chocapikk</td>
+                      <td>
+                        
+                          msutovsky-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">12 comments</span>
+                        
+                      </td>
+                      <td>3 months ago</td>
+                      <td>1 month ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="137" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20618', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20618" target="_blank" onclick="event.stopPropagation();">#20618</a></td>
+                      <td> fixes the &quot;unsupported token: 169&quot; error that occurs when executing stored procedures against Microsoft SQL </td>
+                      <td>Aaditya1273</td>
+                      <td>
+                        
+                          jheysel-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">3 comments</span>
+                        
+                      </td>
+                      <td>4 months ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="137" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20617', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20617" target="_blank" onclick="event.stopPropagation();">#20617</a></td>
+                      <td>Add OptArray datastore option type</td>
+                      <td>Aaditya1273</td>
+                      <td>
+                        
+                          jheysel-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">7 comments</span>
+                        
+                      </td>
+                      <td>4 months ago</td>
+                      <td>1 month ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="193" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20478', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20478" target="_blank" onclick="event.stopPropagation();">#20478</a></td>
+                      <td>Create escpos_tcp_command_injector.rb</td>
+                      <td>futileskills</td>
+                      <td>
+                        
+                          bwatters-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">docs</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">53 comments</span>
+                        
+                      </td>
+                      <td>6 months ago</td>
+                      <td>3 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="320" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-framework/pull/20037', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-framework/pull/20037" target="_blank" onclick="event.stopPropagation();">#20037</a></td>
+                      <td>Add Apport Symlink Hijacking: CVE-2020-8831</td>
+                      <td>gardnerapp</td>
+                      <td>
+                        
+                          bwatters-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">module</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-docs</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">needs-linting</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">62 comments</span>
+                        
+                      </td>
+                      <td>10 months ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploitable3</span>
+                  <a href="https://github.com/rapid7/metasploitable3/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 8 need review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">12 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">165 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-1" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (12)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="1" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="1">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="31" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/644', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/644" target="_blank" onclick="event.stopPropagation();">#644</a></td>
+                      <td>Fix to build metasploitable3 on kali</td>
+                      <td>Lackierer</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 month ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="284" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/636', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/636" target="_blank" onclick="event.stopPropagation();">#636</a></td>
+                      <td>Skip packing option</td>
+                      <td>serious-toothache</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>9 months ago</td>
+                      <td>9 months ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="478" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/628', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/628" target="_blank" onclick="event.stopPropagation();">#628</a></td>
+                      <td>Fix libvirt guests</td>
+                      <td>alarmfox</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 year ago</td>
+                      <td>1 year ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="608" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/623', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/623" target="_blank" onclick="event.stopPropagation();">#623</a></td>
+                      <td>when I run build.ps1 file I face some errors, so if found solution tha…</td>
+                      <td>abhinayjangde</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 year ago</td>
+                      <td>1 year ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="960" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/603', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/603" target="_blank" onclick="event.stopPropagation();">#603</a></td>
+                      <td>remove expired DST root CA</td>
+                      <td>deargle</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 years ago</td>
+                      <td>2 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="1974" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/489', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/489" target="_blank" onclick="event.stopPropagation();">#489</a></td>
+                      <td>only fetch apache continuum if missing</td>
+                      <td>deargle</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>5 years ago</td>
+                      <td>3 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="2045" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/474', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/474" target="_blank" onclick="event.stopPropagation();">#474</a></td>
+                      <td>Fixed Issue 281</td>
+                      <td>finnlestrange</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>5 years ago</td>
+                      <td>5 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="2371" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/406', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/406" target="_blank" onclick="event.stopPropagation();">#406</a></td>
+                      <td>Fix sudo issues with packer build for ub1404</td>
+                      <td>rhythmize</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 years ago</td>
+                      <td>6 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="947" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/604', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/604" target="_blank" onclick="event.stopPropagation();">#604</a></td>
+                      <td>add a status function to proftpd service file</td>
+                      <td>deargle</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>2 years ago</td>
+                      <td>2 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="1974" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/488', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/488" target="_blank" onclick="event.stopPropagation();">#488</a></td>
+                      <td>add ingreslock vuln</td>
+                      <td>deargle</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>5 years ago</td>
+                      <td>2 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="2735" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/332', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/332" target="_blank" onclick="event.stopPropagation();">#332</a></td>
+                      <td>Hyperv 1803</td>
+                      <td>OptmizerLLC</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">10 comments</span>
+                        
+                      </td>
+                      <td>7 years ago</td>
+                      <td>6 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="3129" 
+                        onclick="window.open('https://github.com/rapid7/metasploitable3/pull/174', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploitable3/pull/174" target="_blank" onclick="event.stopPropagation();">#174</a></td>
+                      <td>Converted to Chef provisioning</td>
+                      <td>0xbadshah</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">delayed</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">13 comments</span>
+                        
+                      </td>
+                      <td>8 years ago</td>
+                      <td>6 years ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-2" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-payloads</span>
+                  <a href="https://github.com/rapid7/metasploit-payloads/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 2 need review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">6 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">563 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-2" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (6)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="2" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="2">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="25" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-payloads/pull/791', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-payloads/pull/791" target="_blank" onclick="event.stopPropagation();">#791</a></td>
+                      <td>Extension Encryption </td>
+                      <td>xHector1337</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>3 weeks ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="162" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-payloads/pull/773', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-payloads/pull/773" target="_blank" onclick="event.stopPropagation();">#773</a></td>
+                      <td>Remove references to Visual Studio &lt; 2019</td>
+                      <td>zeroSteiner</td>
+                      <td>
+                        
+                          bwatters-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>5 months ago</td>
+                      <td>5 months ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="6" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-payloads/pull/793', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-payloads/pull/793" target="_blank" onclick="event.stopPropagation();">#793</a></td>
+                      <td>Tcp support php meterpreter</td>
+                      <td>SaiSakthidar</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>6 days ago</td>
+                      <td>5 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-payloads/pull/792', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-payloads/pull/792" target="_blank" onclick="event.stopPropagation();">#792</a></td>
+                      <td>Adds support for nested directories</td>
+                      <td>msutovsky-r7</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">3 comments</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>3 days ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="139" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-payloads/pull/779', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-payloads/pull/779" target="_blank" onclick="event.stopPropagation();">#779</a></td>
+                      <td>Android - fix failure to load DEX file on Android 14+</td>
+                      <td>voraci0us</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">android</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">3 comments</span>
+                        
+                      </td>
+                      <td>4 months ago</td>
+                      <td>4 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="214" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-payloads/pull/759', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-payloads/pull/759" target="_blank" onclick="event.stopPropagation();">#759</a></td>
+                      <td>Initial support for Malleable C2 Profiles in Windows Metepreter</td>
+                      <td>OJ</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">windows</span>
+                        
+                          <span class="label label-default" style="margin-right: 3px; font-size: 10px;">feature</span>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">20 comments</span>
+                        
+                      </td>
+                      <td>7 months ago</td>
+                      <td>4 months ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-3" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/mettle</span>
+                  <a href="https://github.com/rapid7/mettle/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 3 need review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">3 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">230 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-3" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (3)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="3" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="3">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="8" 
+                        onclick="window.open('https://github.com/rapid7/mettle/pull/293', '_blank');">
+                      <td><a href="https://github.com/rapid7/mettle/pull/293" target="_blank" onclick="event.stopPropagation();">#293</a></td>
+                      <td>Adds support for nested directories</td>
+                      <td>msutovsky-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 week ago</td>
+                      <td>1 week ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="37" 
+                        onclick="window.open('https://github.com/rapid7/mettle/pull/292', '_blank');">
+                      <td><a href="https://github.com/rapid7/mettle/pull/292" target="_blank" onclick="event.stopPropagation();">#292</a></td>
+                      <td>Update Metasploit URL</td>
+                      <td>adfoster-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>3 weeks ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="127" 
+                        onclick="window.open('https://github.com/rapid7/mettle/pull/287', '_blank');">
+                      <td><a href="https://github.com/rapid7/mettle/pull/287" target="_blank" onclick="event.stopPropagation();">#287</a></td>
+                      <td>Adds migrate command for Linux x64/x86</td>
+                      <td>msutovsky-r7</td>
+                      <td>
+                        
+                          dledda-r7
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>4 months ago</td>
+                      <td>4 days ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-4" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit_data_models</span>
+                  <a href="https://github.com/rapid7/metasploit_data_models/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 1 needs review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">2 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">216 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-4" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (2)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="4" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="4">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="30" 
+                        onclick="window.open('https://github.com/rapid7/metasploit_data_models/pull/221', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit_data_models/pull/221" target="_blank" onclick="event.stopPropagation();">#221</a></td>
+                      <td>Add session tags</td>
+                      <td>sjanusz-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>1 month ago</td>
+                      <td>1 month ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="23" 
+                        onclick="window.open('https://github.com/rapid7/metasploit_data_models/pull/223', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit_data_models/pull/223" target="_blank" onclick="event.stopPropagation();">#223</a></td>
+                      <td>[WIP] Add saml auth toggle for users</td>
+                      <td>dwelch-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">2 comments</span>
+                        
+                      </td>
+                      <td>3 weeks ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-5" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-credential</span>
+                  <a href="https://github.com/rapid7/metasploit-credential/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">2 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">175 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-5" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (2)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="5" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="5">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="148" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-credential/pull/194', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-credential/pull/194" target="_blank" onclick="event.stopPropagation();">#194</a></td>
+                      <td>Bump rubyzip dependency to ~&gt; 3.0</td>
+                      <td>ptownes-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">1 comment</span>
+                        
+                      </td>
+                      <td>4 months ago</td>
+                      <td>4 months ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="1418" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-credential/pull/162', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-credential/pull/162" target="_blank" onclick="event.stopPropagation();">#162</a></td>
+                      <td>Update jtr formats</td>
+                      <td>adfoster-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">5 comments</span>
+                        
+                      </td>
+                      <td>3 years ago</td>
+                      <td>3 years ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-6" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/vm-automation</span>
+                  <a href="https://github.com/rapid7/vm-automation/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">2 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">19 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-6" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (2)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="6" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="6">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="1078" 
+                        onclick="window.open('https://github.com/rapid7/vm-automation/pull/24', '_blank');">
+                      <td><a href="https://github.com/rapid7/vm-automation/pull/24" target="_blank" onclick="event.stopPropagation();">#24</a></td>
+                      <td>Add install active directory install command</td>
+                      <td>adfoster-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">5 comments</span>
+                        
+                      </td>
+                      <td>2 years ago</td>
+                      <td>2 years ago</td>
+                    </tr>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="3076" 
+                        onclick="window.open('https://github.com/rapid7/vm-automation/pull/5', '_blank');">
+                      <td><a href="https://github.com/rapid7/vm-automation/pull/5" target="_blank" onclick="event.stopPropagation();">#5</a></td>
+                      <td>Initial swag at VirtualBox support</td>
+                      <td>pbarry-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">11 comments</span>
+                        
+                      </td>
+                      <td>8 years ago</td>
+                      <td>8 years ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-7" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/ruby_smb</span>
+                  <a href="https://github.com/rapid7/ruby_smb/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 1 needs review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">1 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">183 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-7" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (1)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="7" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="7">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="15" 
+                        onclick="window.open('https://github.com/rapid7/ruby_smb/pull/292', '_blank');">
+                      <td><a href="https://github.com/rapid7/ruby_smb/pull/292" target="_blank" onclick="event.stopPropagation();">#292</a></td>
+                      <td>Reauth after STATUS_NETWORK_SESSION_EXPIRED </td>
+                      <td>jheysel-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>2 weeks ago</td>
+                      <td>2 weeks ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-8" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-omnibus</span>
+                  <a href="https://github.com/rapid7/metasploit-omnibus/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">1 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">172 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-8" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (1)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="8" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="8">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row " 
+                        data-needs-review="false" 
+                        data-age-days="648" 
+                        onclick="window.open('https://github.com/rapid7/metasploit-omnibus/pull/199', '_blank');">
+                      <td><a href="https://github.com/rapid7/metasploit-omnibus/pull/199" target="_blank" onclick="event.stopPropagation();">#199</a></td>
+                      <td>Test m1 building</td>
+                      <td>adfoster-r7</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-reviewed">9 comments</span>
+                        
+                      </td>
+                      <td>1 year ago</td>
+                      <td>1 year ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-9" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-bin_tools</span>
+                  <a href="https://github.com/rapid7/rex-bin_tools/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                      <span class="badge" style="background-color: #e74c3c; color: #fff; margin-left: 5px;" title="Pull requests needing review">⚠ 1 needs review</span>
+                    
+                    <span class="badge" style="background-color: #dc3545; margin-left: 5px;">1 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">9 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-9" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+                <h4>Open Pull Requests (1)
+                  <button class="sort-toggle btn btn-xs btn-default" data-repo-index="9" style="margin-left: 15px; font-size: 11px;" title="Toggle sort order">
+                    <span class="glyphicon glyphicon-sort"></span> Sort: <span class="sort-mode">Needs Review</span>
+                  </button>
+                </h4>
+                <table class="table table-striped table-condensed" data-repo-index="9">
+                  <thead>
+                    <tr>
+                      <th style="width: 6%">#</th>
+                      <th style="width: 32%;">Title</th>
+                      <th style="width: 12%;">Author</th>
+                      <th style="width: 12%;">Assignees</th>
+                      <th style="width: 12%;">Labels</th>
+                      <th style="width: 8%;">Review</th>
+                      <th style="width: 9%;">Age</th>
+                      <th style="width: 9%;">Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr class="clickable-row unreviewed-row" 
+                        data-needs-review="true" 
+                        data-age-days="184" 
+                        onclick="window.open('https://github.com/rapid7/rex-bin_tools/pull/12', '_blank');">
+                      <td><a href="https://github.com/rapid7/rex-bin_tools/pull/12" target="_blank" onclick="event.stopPropagation();">#12</a></td>
+                      <td>Adapting to Regexp.new&#39;s New Signature in Ruby 3.3+</td>
+                      <td>BinRacer</td>
+                      <td>
+                        
+                          <span style="color: #999;">unassigned</span>
+                        
+                      </td>
+                      <td>
+                        
+                      </td>
+                      <td>
+                        
+                          <span class="review-badge badge-needs-review">⚠ Needs Review</span>
+                        
+                      </td>
+                      <td>6 months ago</td>
+                      <td>6 months ago</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-10" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/meterpreter</span>
+                  <a href="https://github.com/rapid7/meterpreter/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">148 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-10" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-11" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-model</span>
+                  <a href="https://github.com/rapid7/metasploit-model/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">70 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-11" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-12" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-text</span>
+                  <a href="https://github.com/rapid7/rex-text/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">70 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-12" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-13" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-socket</span>
+                  <a href="https://github.com/rapid7/rex-socket/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">70 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-13" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-14" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-baseline-builder</span>
+                  <a href="https://github.com/rapid7/metasploit-baseline-builder/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">45 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-14" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-15" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-powershell</span>
+                  <a href="https://github.com/rapid7/rex-powershell/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">45 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-15" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-16" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-core</span>
+                  <a href="https://github.com/rapid7/rex-core/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">41 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-16" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-17" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-javapayload</span>
+                  <a href="https://github.com/rapid7/metasploit-javapayload/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">38 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-17" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-18" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-random_identifier</span>
+                  <a href="https://github.com/rapid7/rex-random_identifier/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">19 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-18" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-19" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/network_interface</span>
+                  <a href="https://github.com/rapid7/network_interface/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">18 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-19" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-20" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-sslscan</span>
+                  <a href="https://github.com/rapid7/rex-sslscan/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">12 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-20" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-21" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-arch</span>
+                  <a href="https://github.com/rapid7/rex-arch/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">12 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-21" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-22" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/metasploit-aggregator</span>
+                  <a href="https://github.com/rapid7/metasploit-aggregator/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">11 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-22" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-23" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-mime</span>
+                  <a href="https://github.com/rapid7/rex-mime/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">8 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-23" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-24" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex</span>
+                  <a href="https://github.com/rapid7/rex/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">6 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-24" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-25" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-encoder</span>
+                  <a href="https://github.com/rapid7/rex-encoder/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">5 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-25" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-26" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/msfrpc-client</span>
+                  <a href="https://github.com/rapid7/msfrpc-client/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">5 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-26" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-27" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-ole</span>
+                  <a href="https://github.com/rapid7/rex-ole/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">4 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-27" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-28" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-java</span>
+                  <a href="https://github.com/rapid7/rex-java/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">4 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-28" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-29" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-rop_builder</span>
+                  <a href="https://github.com/rapid7/rex-rop_builder/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">3 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-29" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-30" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-nop</span>
+                  <a href="https://github.com/rapid7/rex-nop/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">3 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-30" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-31" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-struct2</span>
+                  <a href="https://github.com/rapid7/rex-struct2/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">3 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-31" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-32" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-registry</span>
+                  <a href="https://github.com/rapid7/rex-registry/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">3 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-32" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+            <div class="panel panel-default" style="margin-bottom: 30px;">
+              <div class="panel-heading" data-toggle="collapse" data-target="#collapse-33" aria-expanded="false">
+                <h3 class="panel-title">
+                  <span class="repo-name">rapid7/rex-zip</span>
+                  <a href="https://github.com/rapid7/rex-zip/pulls" target="_blank" class="github-icon" onclick="event.stopPropagation();" title="Open on GitHub">🔗</a>
+                  <span class="pull-right">
+                    
+                    
+                    <span class="badge" style="background-color: #6c757d; margin-left: 5px;">0 open</span>
+                    <span class="badge" style="background-color: #28a745; margin-left: 5px;">3 closed</span>
+                  </span>
+                </h3>
+              </div>
+              <div id="collapse-33" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2>Top items this last week</h2>
+    
+            
+    <div class="panel panel-primary">
+      <div class="panel-heading" data-toggle="collapse"
+           data-parent="#accordion" data-target="#index">
+        <h4 class="panel-title">New Open Pull Requests</h4>
+      </div>
+      <div id="index" class="panel-collapse collapse">
+      <div class="panel-body">
+        Check out some of the new Open Pull Requests for this week!
+      </div>
+      <div class="table-responsive">
+      <table class="table">
+    
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21024">
+                <span class="fa-fw fa fa-github">Fix #21022: msfrpcd JSON-RPC SSL certificate check logic</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-27T01:37:40+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Aaditya1273
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21023">
+                <span class="fa-fw fa fa-github">Add: exploits/multi/http/os_cmd_exec</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-26T19:20:47+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              g0tmi1k
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21020">
+                <span class="fa-fw fa fa-github">Running-Private-Modules.md: Remove duplicate lines</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-26T14:49:03+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              g0tmi1k
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21019">
+                <span class="fa-fw fa fa-github">phpmyadmin_config: Add check, support v3.1.x & CVE-2009-1285</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-24T13:05:13+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              g0tmi1k
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21017">
+                <span class="fa-fw fa fa-github">Add Tactical RMM Jinja2 SSTI RCE module (CVE-2025-69516)</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T18:28:37+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Chocapikk
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21016">
+                <span class="fa-fw fa fa-github">Add QuestDB SQL API Interaction Module (CNVD-2026-84827)</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T15:43:20+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              ctkqiang
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21009">
+                <span class="fa-fw fa fa-github">Add SMB relay packet forwarding for single target</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-22T18:03:47+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Mecktro
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21008">
+                <span class="fa-fw fa fa-github">Add kernel_rex_version for kernel parsing</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-22T17:59:50+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              EclipseAditya
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21004">
+                <span class="fa-fw fa fa-github">Fix trailing backslash in shell registry operations</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T12:38:11+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              EclipseAditya
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21003">
+                <span class="fa-fw fa fa-github">Unified Selenium Grid/Selenoid RCE with Firefox + Chrome auto-detection</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T11:09:33+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Chocapikk
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21002">
+                <span class="fa-fw fa fa-github">Add LeakIX search module with 6 actions and bulk streaming</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T09:49:26+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Chocapikk
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21001">
+                <span class="fa-fw fa fa-github">Add SPIP Saisies plugin RCE module (CVE-2025-71243)</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T08:28:10+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Chocapikk
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21000">
+                <span class="fa-fw fa fa-github">Add three MajorDoMo unauthenticated RCE modules</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T07:36:57+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Chocapikk
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20999">
+                <span class="fa-fw fa fa-github">Remove obsolete windows/local/persistence in favor of windows/persistence/registry</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T03:54:59+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Aaditya1273
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20997">
+                <span class="fa-fw fa fa-github">Introduce OptTimedelta</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-20T20:47:24+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Nayeraneru
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21015">
+                <span class="fa-fw fa fa-github">Add AD CS Web Enrollment certificate issuance module with HttpCliet a…</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T14:47:02+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              erdragone430
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21014">
+                <span class="fa-fw fa fa-github">Fix crash when running ldap esc vulnerable cert finder</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T11:33:14+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              adfoster-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21012">
+                <span class="fa-fw fa fa-github">Improve graphql introspection detection scanner</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T11:20:04+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              adfoster-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21011">
+                <span class="fa-fw fa fa-github">Add support for printing module name prefix</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T10:32:31+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              adfoster-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21010">
+                <span class="fa-fw fa fa-github">Update Gitlab mixin logs</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T03:53:17+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Nayeraneru
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21007">
+                <span class="fa-fw fa fa-github">Add Kerberos authentication support to SCCM mixin</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T21:57:45+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              erdragone430
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21006">
+                <span class="fa-fw fa fa-github">Add Ollama path traversal RCE module (CVE-2024-37032)</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T15:55:02+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              Chocapikk
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21005">
+                <span class="fa-fw fa fa-github">add dsm target exploitation to gnu telnetd docs</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T15:29:09+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              h00die
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20998">
+                <span class="fa-fw fa fa-github">Updated code, added docs</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T01:24:55+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              oxagast
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20995">
+                <span class="fa-fw fa fa-github">Revert "Report more vulns when importing acunetix XML file"</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-20T17:47:18+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              sjanusz-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20993">
+                <span class="fa-fw fa fa-github">Remove encoding issue in source file</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-20T13:34:53+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              adfoster-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20992">
+                <span class="fa-fw fa fa-github">Add check method to ms17-010 scanner module</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-20T13:14:40+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              adfoster-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-payloads/issues/793">
+                <span class="fa-fw fa fa-github">Tcp support php meterpreter</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-21T15:25:58+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              SaiSakthidar
+            </td>
+          </tr></table></div></div></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading" data-toggle="collapse"
+           data-parent="#accordion" data-target="#features_and_enhancements">
+        <h4 class="panel-title">New Open Features and Enhancements</h4>
+      </div>
+      <div id="features_and_enhancements" class="panel-collapse collapse">
+      <div class="panel-body">
+        Check out some of the new Open Features and Enhancements for this week!
+      </div>
+      <div class="table-responsive">
+      <table class="table">
+    </table></div></div></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading" data-toggle="collapse"
+           data-parent="#accordion" data-target="#bugs">
+        <h4 class="panel-title">New Open Bugs</h4>
+      </div>
+      <div id="bugs" class="panel-collapse collapse">
+      <div class="panel-body">
+        Check out some of the new Open Bugs for this week!
+      </div>
+      <div class="table-responsive">
+      <table class="table">
+    
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21022">
+                <span class="fa-fw fa fa-github">msfdb init & msfrpcd JSON-RPC: It doesn't appear msfdb has been run; please run 'msfdb init' first.</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-26T16:07:40+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              g0tmi1k
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21021">
+                <span class="fa-fw fa fa-github">reload_all: Unknown command: reload</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-26T14:53:56+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              g0tmi1k
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/21013">
+                <span class="fa-fw fa fa-github">Exceptions when running wordpress module scanner</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-23T11:24:19+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              adfoster-r7
+            </td>
+          </tr>
+          <tr>
+            <td class="resource_url">
+              <a target="_blank" href="https://github.com/rapid7/metasploit-framework/issues/20996">
+                <span class="fa-fw fa fa-github">smbclient is not compatible with Msf::Exploit::Remote::SMB::RelayServer</span>
+              </a>
+            </td>
+
+            <td class="resource_date" nowrap>
+              <em>2026-02-20T18:48:37+00:00</em>
+            </td>
+
+            <td class="resource_author" nowrap>
+              jheysel-r7
+            </td>
+          </tr></table></div></div></div></div>
+
+    <script>
+      // Ensure collapse indicators work properly
+      $(document).ready(function() {
+        $('.collapse').on('show.bs.collapse', function () {
+          $(this).prev().find('.collapse-toggle').removeClass('collapsed');
+        });
+
+        $('.collapse').on('hide.bs.collapse', function () {
+          $(this).prev().find('.collapse-toggle').addClass('collapsed');
+        });
+
+        // Track visited pull requests
+        var visitedPRs = JSON.parse(localStorage.getItem('visitedPRs') || '[]');
+
+        function markAsVisited(row, url) {
+          if (visitedPRs.indexOf(url) === -1) {
+            visitedPRs.push(url);
+            localStorage.setItem('visitedPRs', JSON.stringify(visitedPRs));
+          }
+          $(row).addClass('visited');
+        }
+
+        // Mark already visited rows
+        $('.clickable-row').each(function() {
+          var url = $(this).attr('onclick').match(/window\.open\('([^']+)'/)[1];
+          if (visitedPRs.indexOf(url) !== -1) {
+            $(this).addClass('visited');
+          }
+        });
+
+        // Track clicks on rows
+        $('.clickable-row').click(function() {
+          var url = $(this).attr('onclick').match(/window\.open\('([^']+)'/)[1];
+          markAsVisited(this, url);
+        });
+
+        // Track clicks on links (including keyboard navigation)
+        $('.clickable-row a').click(function(e) {
+          var url = $(this).attr('href');
+          var row = $(this).closest('.clickable-row');
+          markAsVisited(row, url);
+        });
+
+        // Clear visited PRs button
+        $('#clearVisitedBtn').click(function() {
+          localStorage.removeItem('visitedPRs');
+          visitedPRs = [];
+          $('.clickable-row').removeClass('visited');
+          $(this).blur(); // Remove focus from button
+        });
+
+        // Sort toggle functionality
+        var sortModes = {}; // Track sort mode per repo
+
+        $('.sort-toggle').click(function(e) {
+          e.stopPropagation();
+          var repoIndex = $(this).data('repo-index');
+          var currentMode = sortModes[repoIndex] || 'needs-review';
+          
+          // Cycle through three modes: needs-review → age-asc → age-desc
+          var newMode;
+          if (currentMode === 'needs-review') {
+            newMode = 'age-asc';
+          } else if (currentMode === 'age-asc') {
+            newMode = 'age-desc';
+          } else {
+            newMode = 'needs-review';
+          }
+          sortModes[repoIndex] = newMode;
+
+          // Update button text
+          var buttonText = newMode === 'needs-review' ? 'Needs Review' : 
+                          (newMode === 'age-asc' ? 'Age ↑' : 'Age ↓');
+          $(this).find('.sort-mode').text(buttonText);
+
+          // Find the table for this repo
+          var table = $('table[data-repo-index="' + repoIndex + '"]');
+          var tbody = table.find('tbody');
+          var rows = tbody.find('tr').toArray();
+
+          // Sort rows based on mode
+          rows.sort(function(a, b) {
+            if (newMode === 'needs-review') {
+              // Sort by needs review (true first), then by age
+              var aNeedsReview = $(a).attr('data-needs-review') === 'true' ? 0 : 1;
+              var bNeedsReview = $(b).attr('data-needs-review') === 'true' ? 0 : 1;
+              if (aNeedsReview !== bNeedsReview) {
+                return aNeedsReview - bNeedsReview;
+              }
+              // Secondary sort by age (newest first)
+              return parseInt($(a).attr('data-age-days')) - parseInt($(b).attr('data-age-days'));
+            } else if (newMode === 'age-asc') {
+              // Sort by age ascending (oldest first)
+              return parseInt($(b).attr('data-age-days')) - parseInt($(a).attr('data-age-days'));
+            } else {
+              // Sort by age descending (newest first)
+              return parseInt($(a).attr('data-age-days')) - parseInt($(b).attr('data-age-days'));
+            }
+          });
+
+          // Reattach rows in new order
+          tbody.empty();
+          $.each(rows, function(i, row) {
+            tbody.append(row);
+          });
+
+          $(this).blur();
+        });
+      });
+    </script>
+  </body>
+</html>
